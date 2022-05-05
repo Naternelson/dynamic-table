@@ -1,12 +1,12 @@
-import faker from "@faker-js/faker"
-import { BoxProps, Box, TableContainer, Table, TableRow, TableCell, Checkbox, TableHead, TableBody, Button } from "@mui/material"
-import { PropsWithChildren, ReactNode, useEffect, useState } from "react"
+import { BoxProps, Box} from "@mui/material"
+import { PropsWithChildren } from "react"
 
 interface DynamicTableContainerProps{
     containerProps?: BoxProps
 }
 export default function DynamicTableContainer(props:PropsWithChildren<DynamicTableContainerProps>){
-    const containerProps:BoxProps = {flex:1, overflow:'hidden', display:'flex', flexDirection:'column', ...(props.containerProps || {})}
+    const propsContainer = props.containerProps || {}
+    const containerProps:BoxProps = {flex:1, overflow:'hidden', display:'flex', flexDirection:'column', ...propsContainer}
     return (
         <Box {...containerProps}>
             {props.children}

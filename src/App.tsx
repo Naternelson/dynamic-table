@@ -3,6 +3,7 @@ import { Box, BoxProps, Paper, PaperProps, Table, TableHead, TableBody, TableRow
 import {faker} from "@faker-js/faker"
 import DynamicTable from './components/dynamic-table';
 import DynamicTableContainer from './components/dynamic-table/dynamic-table-container';
+import DynamicHeader from './components/dynamic-table/header';
 function App() {
   const appWrapper:BoxProps = {
     display:'flex',
@@ -19,13 +20,7 @@ function App() {
       <Paper elevation={24} sx={{display:'flex', flex:1,m:3}}>
         <DynamicTableContainer containerProps={{p:3}}>
           <DynamicTable>
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  Hello there
-                </TableCell>
-              </TableRow>
-            </TableHead>
+            <DynamicHeader/>
           </DynamicTable>
         </DynamicTableContainer>
       </Paper>
