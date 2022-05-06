@@ -1,7 +1,6 @@
-import { SxProps, TableCell, TableHead, TableRow, TableRowProps } from "@mui/material";
+import { SxProps, TableHead, TableRow, TableRowProps } from "@mui/material";
 import { PropsWithChildren } from "react";
 import SelectHeaderCell from "./select-cell";
-import HeaderCell from "./table-head-cell";
 
 interface HeaderProps{
     selectCell?: boolean,

@@ -1,11 +1,15 @@
 import { CaseReducer, createSlice,  PayloadAction } from "@reduxjs/toolkit";
 
+
+
 type Align = "center" | "inherit" | 'justify' | 'left' | 'right'
 type Padding = 'checkbox' | 'none' | 'normal'
 type Size = 'small' | 'medium' 
 type Column = {
     id: string, 
-    value:string | number | null, 
+    value:string | number | null,
+    type?: string ,
+    color?: string,  
     align: Align
     padding: Padding, 
     size: Size,

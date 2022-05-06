@@ -1,5 +1,5 @@
-import { SortDirection, TableCellProps } from "@mui/material";
-import { CaseReducer, createSlice, CreateSliceOptions, PayloadAction, SliceCaseReducers } from "@reduxjs/toolkit";
+import { SortDirection } from "@mui/material";
+import { CaseReducer, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type Align = "center" | "inherit" | 'justify' | 'left' | 'right'
 type Padding = 'checkbox' | 'none' | 'normal'

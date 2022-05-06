@@ -1,4 +1,4 @@
-import { Checkbox, CheckboxProps, TableCell, TableCellProps } from "@mui/material";
+import { Checkbox, CheckboxProps, TableCellProps } from "@mui/material";
 import HeaderCell from "./table-head-cell";
 
 interface SelectHeaderCellProps{

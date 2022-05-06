@@ -1,6 +1,5 @@
-import React, { ReactNode, useEffect, useState } from 'react';
-import { Box, BoxProps, Paper, PaperProps, Table, TableHead, TableBody, TableRow, TableCell, Checkbox, TableContainer, Button } from '@mui/material';
-import {faker} from "@faker-js/faker"
+import React from 'react';
+import { Box, BoxProps, Paper} from '@mui/material';
 import DynamicTable from './components/dynamic-table';
 import DynamicTableContainer from './components/dynamic-table/dynamic-table-container';
 import DynamicHeader from './components/dynamic-table/header';
