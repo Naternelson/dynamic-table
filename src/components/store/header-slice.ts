@@ -6,6 +6,7 @@ type Padding = 'checkbox' | 'none' | 'normal'
 type Size = 'small' | 'medium' 
 type Header = {
     [id:string]:{
+        id: string, 
         value:string, 
         align: Align
         padding: Padding, 
@@ -26,6 +27,9 @@ const initialState:HeaderState = {
     headers: {}
 }
 
+const reset:CaseReducer = () => {
+    return initialState
+}
 
 const addHeaders:CaseReducer<HeaderState, PayloadAction<Header>> = (state, action) => {
     const set = new Set(state.order)
@@ -68,7 +72,7 @@ const updateHeader: CaseReducer<HeaderState, PayloadAction<Header>>  = (state, a
 export const headerSlice = createSlice({
     name:'headers',
     initialState,
-    reducers: {addHeaders, removeHeaders, selectHeader, unselectHeader, setDirection, updateHeader}
+    reducers: {reset, addHeaders, removeHeaders, selectHeader, unselectHeader, setDirection, updateHeader}
 })
 export const headerActions = headerSlice.actions
 export const headerReducer = headerSlice.reducer
