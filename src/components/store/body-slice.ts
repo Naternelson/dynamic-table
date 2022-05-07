@@ -6,7 +6,7 @@ import { selectActiveColumn, selectSortDirection } from "./header-slice";
 type Align = "center" | "inherit" | 'justify' | 'left' | 'right'
 type Padding = 'checkbox' | 'none' | 'normal'
 type Size = 'small' | 'medium' 
-type Column = {
+export type Column = {
     id: string, 
     value:string | number | null,
     type?: string ,
@@ -17,14 +17,15 @@ type Column = {
     span: number,
     searchable?: boolean  
 }
-type Rows = {
+export type Rows = {
     [id:string]:{
         id: string, 
         columns: {[columnId: string]: Column}
     } 
 }
 
-interface BodyState{
+export interface BodyState{
+    loading: boolean, 
     max: number
     filterBy: string,
     filterByColumn: string | null 
@@ -33,12 +34,20 @@ interface BodyState{
     rows: Rows
 }
 const initialState:BodyState = {
+    loading: false, 
     max: 10000,
     filterBy: "",
     filterByColumn: null,
     filterByColumnMatch: null,  
     selected: {},
     rows: {}
+}
+
+const startLoad:CaseReducer<BodyState> = state => {
+    return {...state, loading: true}
+}
+const endLoad:CaseReducer<BodyState> = state => {
+    return {...state, loading: false}
 }
 
 const changeMaxSize:CaseReducer<BodyState, PayloadAction<number>> = (state, action) => {
@@ -129,15 +138,17 @@ const ungroup: CaseReducer<BodyState> = (state) => {
     }
 }
 
-export const headerSlice = createSlice({
+export const bodySlice = createSlice({
     name:'headers',
     initialState,
     reducers: {
         reset, addRows, toggleSelections, selectAll, unselectAll, removeRows, 
-        modifyRows, selectRows, unselectRows, searchBy, groupBy, ungroup, changeMaxSize}
+        modifyRows, selectRows, unselectRows, searchBy, groupBy, ungroup, changeMaxSize,
+        startLoad, endLoad
+    }
 })
-export const bodyActions = headerSlice.actions
-export const bodyReducer = headerSlice.reducer
+export const bodyActions = bodySlice.actions
+export const bodyReducer = bodySlice.reducer
 
 export const selectBodyData:(state:any) => Rows = (state) => state.body.rows
 export const selectBodyMax:(state:any) => number = (state) => state.body.max 

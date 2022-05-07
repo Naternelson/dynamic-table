@@ -20,30 +20,32 @@ export default function useBodyRows(){
         })
     }, useMemoDeps(rows, activeColumn))
 
-    const selectSortedRows = useMemo(() => {
+    const sortedRows = useMemo(() => {
         const sorted = selectByColumn.sort((a, b) => {
             if(direction === "asc") return  +(a.value > b.value) || +(a.value === b.value) - 1;
             return  (+(a.value > b.value) || +(a.value === b.value) - 1) * -1
         })
         return sorted.map(row => {
-            return rows[row.id]
+            return row.id 
         })
     },useMemoDeps(selectByColumn, rows, direction))
 
-    const selectGroupedRows = useMemo(()=>{
-        if(!groupBy || !matchBy) return selectSortedRows
-        return selectSortedRows.filter((row) => {
-            return row.columns[groupBy].value === matchBy 
+    const groupedRows = useMemo(()=>{
+        if(!groupBy || !matchBy) return sortedRows
+        return sortedRows.filter((id) => {
+            return rows[id].columns[groupBy].value === matchBy 
         }) 
-    }, useMemoDeps(groupBy, matchBy, selectSortedRows))
 
-    const selectByFiltered = useMemo(()=>{
-        if(searchBy.trim() === "") return selectGroupedRows 
-        return selectGroupedRows.filter(row => {
+    }, useMemoDeps(sortedRows, groupBy, matchBy, rows))
+
+    const filteredRows = useMemo(()=> {
+        if(searchBy.trim() === "") return groupedRows 
+        return groupedRows.filter(id=>{
+            const row = rows[id]
             const searchText = Object.values(row.columns).filter(col => col.searchable === false ? false : typeof col.value === "string").map(col => col.value).join("")
             return searchText.includes(searchBy)
         })
-    },useMemoDeps([selectGroupedRows, searchBy]))
+    },useMemoDeps(groupedRows, searchBy, rows))
 
-    return selectByFiltered.slice(0, max) 
+    return filteredRows.slice(0, max)
 }
