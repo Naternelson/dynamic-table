@@ -17,13 +17,13 @@ type Header = {
 interface HeaderState{
     order: string[],
     direction: SortDirection,
-    active: string,
+    active: string | null,
     headers: Header
 }
 const initialState:HeaderState = {
     order: [],
     direction: "asc",
-    active: "",
+    active: null,
     headers: {}
 }
 
@@ -44,7 +44,7 @@ const removeHeaders: CaseReducer<HeaderState, PayloadAction<string[]>> = (state,
     action.payload.forEach(id => {
         set.delete(id)
         delete state.headers[id]
-        if(state.active === id) state.active = ""
+        if(state.active === id) state.active = null
     })
     state.order = Array.from(set)
     return state 
@@ -60,7 +60,7 @@ const selectHeader: CaseReducer<HeaderState, PayloadAction<string>> = (state, ac
 }
 
 const unselectHeader: CaseReducer<HeaderState> = (state) => {
-    return {...state, active: ""}
+    return {...state, active: null}
 }
 const setDirection: CaseReducer<HeaderState, PayloadAction<SortDirection>> = (state, action)=> {
     return {...state, direction: action.payload || "asc"}
@@ -76,3 +76,6 @@ export const headerSlice = createSlice({
 })
 export const headerActions = headerSlice.actions
 export const headerReducer = headerSlice.reducer
+
+export const selectActiveColumn:(state:any) => string = state => state.headers.active 
+export const selectSortDirection:(state:any) => SortDirection = state => state.headers.direction 

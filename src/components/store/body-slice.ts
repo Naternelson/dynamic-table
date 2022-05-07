@@ -1,4 +1,5 @@
-import { CaseReducer, createSlice,  PayloadAction } from "@reduxjs/toolkit";
+import { CaseReducer, createReducer, createSelector, createSlice,  PayloadAction } from "@reduxjs/toolkit";
+import { selectActiveColumn, selectSortDirection } from "./header-slice";
 
 
 
@@ -137,3 +138,33 @@ export const headerSlice = createSlice({
 })
 export const bodyActions = headerSlice.actions
 export const bodyReducer = headerSlice.reducer
+
+export const selectBodyData:(state:any) => Rows = (state) => state.body.rows
+export const selectBodyMax:(state:any) => number = (state) => state.body.max 
+export const selectBodySearchBy:(state:any)=>string = state => state.body.filterBy 
+export const selectBodyGroupBy:(state:any)=>(string|null) = state => state.body.filterByColumn
+export const selectBodyGroupMatch:(state:any)=>(string|null) = state => state.body.filterByColumnMatch
+
+
+// export const selectByColumn = createSelector(selectBodyData, selectActiveColumn, (rows, column) => {
+//     return Object.values(rows).map(row => {
+//         const value:string|number = row.columns[column].value === null ? "" : typeof (row.columns[column].value) === "string" ? String(row.columns[column].value) : Number(row.columns[column].value)
+//         return  {id:row.id, value}
+//     })
+// })
+
+// interface Row{
+//     id: string, 
+//     columns: {[columnId: string]: Column}
+// }
+
+// export const selectSortedRows = createSelector(selectBodyData, selectByColumn, selectSortDirection, (rows, byColumn, direction) => {
+//     const sorted = byColumn.sort((a,b) =>{
+//         if(direction === "asc") return  +(a.value > b.value) || +(a.value === b.value) - 1;
+//         return  (+(a.value > b.value) || +(a.value === b.value) - 1) * -1
+//     })
+//     const result:Row[] = sorted.map(row => {
+//         return rows[row.id]
+//     })
+//     return result
+// })

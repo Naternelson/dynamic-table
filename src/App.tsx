@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, BoxProps, Paper} from '@mui/material';
 import DynamicTable from './components/dynamic-table';
 import DynamicTableContainer from './components/dynamic-table/dynamic-table-container';
 import DynamicHeader from './components/dynamic-table/header';
+import { useStore } from 'react-redux';
 function App() {
+  const store = useStore()
+  const state = store.getState()
   const appWrapper:BoxProps = {
     display:'flex',
     height: '100vh',
